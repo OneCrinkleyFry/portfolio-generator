@@ -21,7 +21,8 @@ const promptUser = () => {
         ]);
 };
 
-const promptProject = () => {
+const promptProject = protfolioData => {
+    if (!protfolioData.projects) protfolioData.projects = [];
     console.log(`
 =================
 Add a New Project
@@ -62,12 +63,20 @@ Add a New Project
             default: false
         }
     ])
+        .then(projectData => {
+            protfolioData.projects.push(projectData);
+
+            if (projectData.confirmAddProject) {
+                return promptProject(protfolioData);
+            } else {
+                return protfolioData;
+            }
+        });
 }
 
 promptUser()
-    .then(answers => console.log(answers))
     .then(promptProject)
-    .then(projectAnswers => console.log(projectAnswers));
+    .then(portfolioData => console.log(portfolioData));
 
 // const fs = require('fs');
 // const generatePage = require('./src/page-template.js');=
