@@ -16,18 +16,18 @@ const writeFile = fileContent => {
     });
 };
 
-//     fs.writeFile('./dist/index.html', generatePage(portfolioData), err => {
-//         if (err) throw new Error(err);
+const copyFile = () => {
+    return new Promise((resolve, reject) => {
+        fs.copyFile('./src/css/style.css', './dist/style.css', err => {
+            if (err) {
+                reject(err);
+                return;
+            }
 
-//         console.log('Portfolio complete! Check out index.html to see the output!');
-
-//         fs.copyFile('./src/css/style.css', './dist/style.css', err => {
-//             if (err) {
-//                 console.log(err);
-//                 return;
-//             }
-
-//             console.log('Style sheet copied successfully!');
-//         });
-//     });
-// });
+            resolve({
+                ok: true,
+                message: 'File Copied!'
+            });
+        });
+    });
+};
